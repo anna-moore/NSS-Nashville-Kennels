@@ -6,7 +6,11 @@ import { AnimalList } from "./animal/AnimalList"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { LocationCard } from "./location/Location"
 import { EmployeeCard } from "./employee/Employee"
-import { CustomerCard } from "./customer/Customer"
+// import { CustomerCard } from "./customer/Customer"
+import { CustomerProvider } from "./customer/CustomerProvider"
+import { CustomerList } from "./customer/CustomerList"
+import { EmployeeProvider } from "./employee/EmployeeProvider"
+import { LocationProvider } from "./location/LocatonProvider"
 
 export const ApplicationViews = () => {
     return (
@@ -24,19 +28,25 @@ export const ApplicationViews = () => {
             </AnimalProvider>
 
             {/* Render the location list when htt:P//localhist:3000/locations */}
-            <Route path="/locations">
-                <LocationCard />
-            </Route>
+            <LocationProvider>
+                <Route exact path="/locations">
+                    <LocationCard />
+                </Route>
+            </LocationProvider>
 
             {/* Render the employee list when htt:P//localhist:3000/employees */}
-            <Route path="/employees">
-                <EmployeeCard />
-            </Route>
+            <EmployeeProvider>
+                <Route exact path="/employees">
+                    <EmployeeCard />
+                </Route>
+            </EmployeeProvider>
 
             {/* Render the customer list when htt:P//localhist:3000/customers */}
-            <Route path="/customers">
-                <CustomerCard />
-            </Route>
+            <CustomerProvider>
+                <Route exact path="/customers">
+                    <CustomerList />
+                </Route>
+            </CustomerProvider>
         </>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { CustomerContext } from "./CustomerProvider"
 import { CustomerCard } from "./Customer"
-import "./Animal.css"
+import "./Customer.css"
 
 export const CustomerList = () => {
   // This state changes when  getCustomers()` is invoked below

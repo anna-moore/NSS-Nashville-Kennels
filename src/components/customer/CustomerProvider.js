@@ -1,4 +1,4 @@
-import React, { useState, CreateContext, createContext } from "react"
+import React, { useState,  createContext } from "react"
 
 export const CustomerContext = createContext()
 
@@ -8,16 +8,15 @@ export const CustomerProvider = (props )=>{
     //naming convention and what React wants us to do 
     //use state returns an array, with two items 
     //this intial array is empty 
-    const [customers, setCustomer] = useState([])
+    const [customers, setCustomers] = useState([])
 
     const getCustomers = () => {
-        //updat thus URL********
-        return fetch("http://localhist:8088/customers?_expand=location")
+        return fetch("http://localhost:8088/customers")
         .then(res => res.json())
-        .then(setCustomer)
+        .then(setCustomers)
     }
     //react updates the DOm for us like this
-    const addCustomers = (customerObj) => {
+    const addCustomer = (customerObj) => {
         return fetch ("http://localhist:8088/customers", {
             method: "POST",
             headers: {
@@ -30,7 +29,7 @@ export const CustomerProvider = (props )=>{
 
     return (
         <CustomerContext.Provider value={{
-            customers, getCustomers, addCustomers
+            customers, getCustomers, addCustomer
         }}>
             {props.children}
         </CustomerContext.Provider>
