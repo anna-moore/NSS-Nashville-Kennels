@@ -5,7 +5,7 @@ export const EmployeeContext = createContext()
 
 // This component establishes what data can be used.
 export const EmployeeProvider = (props) => {
-    const [Employees, setEmployees] = useState([])
+    const [employees, setEmployees] = useState([])
 
     const getEmployees = () => {
         return fetch("http://localhost:8088/employees")
@@ -32,7 +32,7 @@ export const EmployeeProvider = (props) => {
     */
     return (
         <EmployeeContext.Provider value={{
-            Employees, getEmployees, addEmployee
+            employees, getEmployees, addEmployee
         }}>
             {props.children}
         </EmployeeContext.Provider>

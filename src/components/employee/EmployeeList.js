@@ -20,7 +20,7 @@ export const EmployeeList = () => {
       {console.log("EmployeeList: Render", employees)}
       {
      employees.map( employee => {
-          return <EmployeeCard key={employee.id}  Employee={employee} />
+          return <EmployeeCard key={employee.id}  employee={employee} />
         })
       }
     </div>
