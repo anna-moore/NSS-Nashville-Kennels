@@ -15,6 +15,7 @@ import { EmployeeList } from "./employee/EmployeeList"
 import { EmployeeForm } from "./employee/EmployeeForm"
 import { LocationProvider } from "./location/LocationProvider"
 import { LocationList } from "./location/LocationList"
+import { LocationForm } from "./location/LocationForm"
 
 export const ApplicationViews = () => {
     return (
@@ -50,6 +51,12 @@ export const ApplicationViews = () => {
                 </Route>
             </LocationProvider>
 
+            <LocationProvider>
+                <Route path="/location/create">
+                    <LocationForm />
+                </Route>
+            </LocationProvider>
+
             {/* Render the employee list when htt:P//localhist:3000/employees */}
             <EmployeeProvider>
                 <Route exact path="/employees">
@@ -59,7 +66,7 @@ export const ApplicationViews = () => {
 
             <EmployeeProvider>
                 <LocationProvider>
-                    <Route path="employees/create">
+                    <Route path="/employees/create">
                         <EmployeeForm />
                     </Route>
                 </LocationProvider>

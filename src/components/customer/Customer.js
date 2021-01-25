@@ -6,7 +6,7 @@ export const CustomerCard = ({ customer}) => (
         <h3 className="customer__name">{customer.name}</h3>
         <div className="customer__address">{customer.address}</div>
         <div className="customer__animals">
-            <ul>{customer.animals.map((animal) => <li>{animal.name}</li>)}
+            <ul>{customer.animals.map((animal) => <li key={animal.id}>{animal.name}</li>)}
             </ul>
         </div>
     </section>

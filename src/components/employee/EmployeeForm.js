@@ -18,7 +18,8 @@ export const EmployeeForm = () => {
 
     const [employee, setEmployee] = useState({
       name: "",
-      locationId: 0
+      locationId: 0,
+      address: ""
     });
 
     const history = useHistory();
@@ -56,8 +57,8 @@ export const EmployeeForm = () => {
 
       const locationId = employee.locationId
 
-      if (locationId === 0 ) {
-        window.alert("Please select a location ")
+      if (locationId === 0 || employee.name === "") {
+        window.alert("Please select a location or enter name")
       } else {
         //invoke addEmployee passing employee as an argument.
         //once complete, change the url and display the employee list
@@ -86,6 +87,12 @@ export const EmployeeForm = () => {
                           </option>
                       ))}
                   </select>
+              </div>
+          </fieldset>
+          <fieldset>
+              <div className="form-group">
+                  <label htmlFor="address">Employee address:</label>
+                  <input type="text" id="address" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Employee's address" value={employee.address}/>
               </div>
           </fieldset>
           <button className="btn btn-primary"
