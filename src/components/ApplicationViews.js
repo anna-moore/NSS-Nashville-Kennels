@@ -1,9 +1,10 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { Home } from "./Home"
-// import { AnimalCard } from "./animal/AnimalCard"
 import { AnimalList } from "./animal/AnimalList"
 import { AnimalProvider } from "./animal/AnimalProvider"
+import { AnimalForm } from "./animal/AnimalForm"
+// import { AnimalCard } from "./animal/AnimalCard"
 // import { LocationCard } from "./location/Location"
 // import { EmployeeCard } from "./employee/Employee"
 // import { CustomerCard } from "./customer/Customer"
@@ -22,12 +23,24 @@ export const ApplicationViews = () => {
                 <Home />
             </Route>
 
-            {/* Render the animal list when http://localhost:3000/animals */}
+            {/* Render the animal list when http://localhost:3000/animals and the add animal form */}
             <AnimalProvider>
                 <Route exact path="/animals">
                     <AnimalList />
                 </Route>
             </AnimalProvider>
+
+            {/* Render the animal form and save the new animal to api */}
+            <AnimalProvider>
+                <CustomerProvider>
+                    <LocationProvider>
+                        <Route path="/animals/create">
+                            <AnimalForm />
+                        </Route>
+                    </LocationProvider>
+                </CustomerProvider>
+            </AnimalProvider>
+
 
             {/* Render the location list when htt:P//localhist:3000/locations */}
             <LocationProvider>
