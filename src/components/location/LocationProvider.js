@@ -17,7 +17,7 @@ export const LocationProvider = (props )=>{
     }
     //react updates the DOm for us like this
     const addLocation = (LocationObj) => {
-        return fetch ("http://localhist:8088/locations", {
+        return fetch ("http://localhost:8088/locations", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
