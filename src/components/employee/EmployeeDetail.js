@@ -23,8 +23,8 @@ export const EmployeeDetail = () => {
     return (
         <section className="employee">
             <h3 className="employee__name">{employee.name}</h3>
-            <div className="employee__address">Employee's Address:{employee.address}</div>
-            <div className="employee__location">Location: {AnimalProvider.location?.name}</div>
+            <div className="employee__address">Employee's Address: {employee.address}</div>
+            <div className="employee__location">Location: {employee.location?.name}</div>
         </section>
     )
 }
