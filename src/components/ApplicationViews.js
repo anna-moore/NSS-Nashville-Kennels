@@ -4,6 +4,7 @@ import { Home } from "./Home"
 import { AnimalList } from "./animal/AnimalList"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { AnimalForm } from "./animal/AnimalForm"
+import { AnimalDetail } from "./animal/AnimalDetail"
 // import { AnimalCard } from "./animal/AnimalCard"
 // import { LocationCard } from "./location/Location"
 // import { EmployeeCard } from "./employee/Employee"
@@ -43,6 +44,12 @@ export const ApplicationViews = () => {
                 </CustomerProvider>
             </AnimalProvider>
 
+            {/* path for every animal detail  */}
+            <AnimalProvider>
+                <Route exact path="/animals/detail/:animalId(\d+)">
+                    <AnimalDetail />
+                </Route>
+            </AnimalProvider>
 
             {/* Render the location list when htt:P//localhist:3000/locations */}
             <LocationProvider>
