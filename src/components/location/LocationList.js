@@ -14,9 +14,7 @@ export const LocationList = () => {
 
   //useEffect - reach out to the world for something
   useEffect(() => {
-    console.log("LocationList: useEffect - getLocations")
- getLocations()
-
+    getLocations()
   }, [])
 
 
@@ -26,7 +24,6 @@ export const LocationList = () => {
             <button onClick={() => {history.push("/locations/create")}}>
                 Add Location
             </button>
-      {console.log("LocationList: Render", locations)}
       {
      locations.map( location => {
           return <LocationCard key={location.id}  location={location} />

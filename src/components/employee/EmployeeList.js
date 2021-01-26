@@ -12,8 +12,8 @@ export const EmployeeList = () => {
   const history = useHistory()
   //useEffect - reach out to the world for something
   useEffect(() => {
-    console.log("EmployeeList: useEffect - getEmployees")
- getEmployees()
+    
+    getEmployees()
 
   }, [])
 
@@ -25,7 +25,7 @@ export const EmployeeList = () => {
       <button onClick={() => {history.push("/employees/create")}}>
           Add Employee
       </button>
-      {console.log("EmployeeList: Render", employees)}
+      
       {
      employees.map( employee => {
           return <EmployeeCard key={employee.id}  employee={employee} />
