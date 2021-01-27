@@ -37,6 +37,9 @@ export const LocationDetail = () => {
 
                 <h3> Current Residents</h3>
                 <div className="location__employeeName">{employeeName}</div>
+                <button onClick={() => {
+                    history.push(`/locations/edit/${location.id}`)
+                }}>Edit</button>
             </section>
         )
 

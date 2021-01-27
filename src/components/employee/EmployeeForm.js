@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react"
 import { LocationContext } from "../location/LocationProvider"
-// import { AnimalContext } from "../animal/AnimalProvider"
-// import { CustomerContext } from "../customer/CustomerProvider"
 import { EmployeeContext } from "./EmployeeProvider"
 import "./Employee.css"
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 export const EmployeeForm = () => {
-    const { addEmployee } = useContext(EmployeeContext)
+    const { addEmployee, getEmployeeById, updateEmployee } = useContext(EmployeeContext)
     const { locations, getLocations } = useContext(LocationContext)
 
     /*
@@ -23,13 +21,25 @@ export const EmployeeForm = () => {
     });
 
     const history = useHistory();
+    const { employeeId } = useParams();
+    const [isLoading, setIsLoading] = useState(true);
 
     /*
     Reach out to the world and get locations state on initialization, 
     so we can provide their data in the form dropdowns
     */
     useEffect(() => {
-      getLocations()
+      getLocations().then(() => {
+        if (employeeId) {
+          getEmployeeById(employeeId)
+          .then(employee => {
+              setEmployee(employee)
+              setIsLoading(false)
+          })
+        } else {
+          setIsLoading(false)
+        }
+      })
     }, [])
 
     //when a field changes, update state. The return will re-render and display based on the values in state
@@ -39,15 +49,8 @@ export const EmployeeForm = () => {
       /* When changing a state object or array,
       always create a copy, make changes, and then set state.*/
       const newEmployee = { ...employee }
-      let selectedVal = event.target.value
-      // forms always provide values as strings. But we want to save the ids as numbers. This will cover both customer and location ids
-      if (event.target.id.includes("Id")) {
-        selectedVal = parseInt(selectedVal)
-      }
-      /* Animal is an object with properties.
-      Set the property to the new value
-      using object bracket notation. */
-      newEmployee[event.target.id] = selectedVal
+      
+      newEmployee[event.target.id] = event.target.value
       // update state
       setEmployee(newEmployee)
     }
@@ -55,21 +58,41 @@ export const EmployeeForm = () => {
     const handleClickSaveEmployee = (event) => {
       event.preventDefault() //Prevents the browser from submitting the form
 
-      const locationId = employee.locationId
+      const locationId = parseInt(employee.locationId)
 
       if (locationId === 0 || employee.name === "") {
         window.alert("Please select a location or enter name")
       } else {
         //invoke addEmployee passing employee as an argument.
         //once complete, change the url and display the employee list
-        addEmployee(employee)
-        .then(() => history.push("/employees"))
+        setIsLoading(true);
+        // This is how we check for whether the form is being used for editing or creating. If the URL that got us here has an id number in it, we know we want to update an existing record of an location
+        if (employeeId){
+          //PUT - update
+          updateEmployee({
+              id: employee.id,
+              name: employee.name,
+              address: employee.address,
+              locationId: parseInt(employee.locationId)
+              
+          })
+          .then(() => history.push(`/employees/detail/${employee.id}`))
+        }else {
+          //POST - add
+          addEmployee({
+              name: employee.name,
+              address: employee.address,
+              locationId: parseInt(employee.locationId)
+              
+          })
+          .then(() => history.push("/locations"))
+        }
       }
     }
 
     return (
       <form className="EmployeeForm">
-          <h2 className="employeeForm__title">New Employee</h2>
+          <h2 className="employeeForm__title">{employeeId ? "Edit Employee" : "Add Employee"}</h2>
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Employee name:</label>
@@ -97,7 +120,7 @@ export const EmployeeForm = () => {
           </fieldset>
           <button className="btn btn-primary"
             onClick={handleClickSaveEmployee}>
-            Save Employee
+            {employeeId ? "Save Employee" : "Add Employee"}
           </button>
       </form>
     )

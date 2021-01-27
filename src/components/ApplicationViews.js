@@ -1,20 +1,20 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { Home } from "./Home"
-import { AnimalList } from "./animal/AnimalList"
+
 import { AnimalProvider } from "./animal/AnimalProvider"
+import { AnimalList } from "./animal/AnimalList"
 import { AnimalForm } from "./animal/AnimalForm"
 import { AnimalDetail } from "./animal/AnimalDetail"
-// import { AnimalCard } from "./animal/AnimalCard"
-// import { LocationCard } from "./location/Location"
-// import { EmployeeCard } from "./employee/Employee"
-// import { CustomerCard } from "./customer/Customer"
+
 import { CustomerProvider } from "./customer/CustomerProvider"
 import { CustomerList } from "./customer/CustomerList"
+
 import { EmployeeProvider } from "./employee/EmployeeProvider"
 import { EmployeeList } from "./employee/EmployeeList"
 import { EmployeeForm } from "./employee/EmployeeForm"
 import { EmployeeDetail } from "./employee/EmployeeDetail"
+
 import { LocationProvider } from "./location/LocationProvider"
 import { LocationList } from "./location/LocationList"
 import { LocationForm } from "./location/LocationForm"
@@ -68,6 +68,9 @@ export const ApplicationViews = () => {
                 <Route path="/locations/create">
                     <LocationForm />
                 </Route>
+                <Route path="/locations/edit/:locationId(\d+)">
+                    <LocationForm />
+                </Route>
             </LocationProvider>
 
             <LocationProvider>
@@ -83,6 +86,7 @@ export const ApplicationViews = () => {
                 </Route>
             </EmployeeProvider>
 
+            
             <EmployeeProvider>
                 <Route exact path="/employees/detail/:employeeId(\d+)">
                     <EmployeeDetail/>
@@ -92,6 +96,9 @@ export const ApplicationViews = () => {
             <EmployeeProvider>
                 <LocationProvider>
                     <Route path="/employees/create">
+                        <EmployeeForm />
+                    </Route>
+                    <Route path="/employees/edit/:employeeId(\d+)">
                         <EmployeeForm />
                     </Route>
                 </LocationProvider>

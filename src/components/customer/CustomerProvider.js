@@ -26,10 +26,25 @@ export const CustomerProvider = (props )=>{
         })
         .then(getCustomers)
     }
+    const getCustomerById = (id) => {
+        return fetch(`http://localhost:8088/customers/${id}?_embed=animals`)
+            .then(res => res.json())
+    }
 
-    return (
+    const updateCustomer = customer => {
+        return fetch(`http://localhost:8088/customers/${customer.id}?_embed=animals`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(customer)
+        })
+          .then(getCustomers)
+      }
+
+    return ( 
         <CustomerContext.Provider value={{
-            customers, getCustomers, addCustomer
+            customers, getCustomers, addCustomer, getCustomerById, updateCustomer
         }}>
             {props.children}
         </CustomerContext.Provider>

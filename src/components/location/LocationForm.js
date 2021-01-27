@@ -4,10 +4,10 @@ import { LocationContext } from "./LocationProvider"
 // import { CustomerContext } from "../customer/CustomerProvider"
 // import { EmployeeContext } from "./EmployeeProvider"
 import "./Location.css"
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 export const LocationForm = () => {
-    const { addLocation } = useContext(LocationContext)
+    const { addLocation, getLocationById, updateLocation } = useContext(LocationContext)
     const { locations, getLocations } = useContext(LocationContext)
 
     /*
@@ -21,13 +21,23 @@ export const LocationForm = () => {
     });
 
     const history = useHistory();
+    const { locationId } = useParams();
+    const [isLoading, setIsLoading] = useState(true);;
 
     /*
     Reach out to the world and get locations state on initialization, 
     so we can provide their data in the form dropdowns
     */
     useEffect(() => {
-      getLocations()
+      if (locationId) {
+        getLocationById(locationId)
+        .then(location => {
+            setLocation(location)
+            setIsLoading(false)
+        })
+      } else {
+        setIsLoading(false)
+      }
     }, [])
 
     //when a field changes, update state. The return will re-render and display based on the values in state
@@ -58,14 +68,28 @@ export const LocationForm = () => {
       } else {
         //invoke addLocation passing location as an argument.
         //once complete, change the url and display the location list
-        addLocation(location)
+        setIsLoading(true);
+        
+      if(locationId){  
+        updateLocation({
+          id: location.id,
+          name: location.name,
+          address: location.address,
+      })
+      .then(() => history.push(`/locations/detail/${location.id}`))
+      }else {
+        //POST - add
+        addLocation({
+            name: location.name,
+            address: location.address,
+            
+        })
         .then(() => history.push("/locations"))
-      }
-    }
+        }}}
 
     return (
       <form className="LocationForm">
-          <h2 className="LocationForm__title">New Location</h2>
+          <h2 className="LocationForm__title">{locationId ? "Edit Location" : "Add Location"}</h2>
           <fieldset>
               <div className="form-group">
                   <label htmlFor="name">Location name:</label>
@@ -80,7 +104,7 @@ export const LocationForm = () => {
           </fieldset>
           <button className="btn btn-primary"
             onClick={handleClickSaveLocation}>
-            Save Location
+            {locationId ? "Save Location" : "Add Location"}
           </button>
       </form>
     )
