@@ -91,10 +91,6 @@ export const AnimalForm = () => {
           })
           .then(() => history.push("/animals"))
         }
-        //invoke addAnimal passing animal as an argument.
-        //once complete, change the url and display the animal list
-        // addAnimal(animal)
-        // .then(() => history.push("/animals"))
       }
     }
 
@@ -103,24 +99,24 @@ export const AnimalForm = () => {
           <h2 className="animalForm__title">{animalId ? "Edit Animal" : "Add Animal"}</h2>
           <fieldset>
               <div className="form-group">
-                  <label htmlFor="name">Animal name:</label>
+                  <label htmlFor="name">Animal Name:</label>
                   <input type="text" id="name"  onChange={handleControlledInputChange} 
                   required autoFocus className="form-control" placeholder="Animal name" value={animal.name}/>
               </div>
           </fieldset>
           <fieldset>
               <div className="form-group">
-                  <label htmlFor="breed">Animal breed:</label>
+                  <label htmlFor="breed">Animal Breed:</label>
                   <input type="text" id="breed" onChange={handleControlledInputChange} 
                   required autoFocus className="form-control" placeholder="Animal breed" value={animal.breed}/>
               </div>
           </fieldset>
           <fieldset>
               <div className="form-group">
-                  <label htmlFor="location">Assign to location: </label>
+                  <label htmlFor="location">Assign to Location: </label>
                   <select value={animal.locationId} name="locationId" id="locationId" 
                   onChange={handleControlledInputChange} className="form-control" >
-                      <option value="0">Select a location</option>
+                      <option value="0">Select a Location</option>
                       {locations.map(l => (
                           <option key={l.id} value={l.id}>
                               {l.name}
@@ -133,7 +129,7 @@ export const AnimalForm = () => {
               <div className="form-group">
                   <label htmlFor="customerId">Customer: </label>
                   <select value={animal.customerId} name="customer" id="customerId" onChange={handleControlledInputChange} className="form-control" >
-                      <option value="0">Select a customer</option>
+                      <option value="0">Select a Customer</option>
                       {customers.map(c => (
                           <option key={c.id} value={c.id}>
                               {c.name}
@@ -147,5 +143,5 @@ export const AnimalForm = () => {
             {animalId ? "Save Animal" : "Add Animal"}
           </button>
       </form>
-    )
-}
+    );
+};
